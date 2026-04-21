@@ -1,0 +1,43 @@
+- name : main playbook
+  hosts : localhost
+  gather_facts: yes
+  become: yes
+  vars_files:
+    - vars.yml
+    - secret.yml
+  tasks:
+    - name: check if docker is installed
+      ansible.builtin.package:
+        name: docker-ce
+        state: present
+
+    - name: dockerhub login
+      community.docker.docker_login:
+        state: present
+        username: "{{ DOCKER_USERNAME }}"
+        password: "{{ DOCKER_PASSWORD }}"
+
+    - name: Build & Push Docker Images
+      community.docker.docker_image:
+        push: yes
+        source: build
+        build: 
+          path: "{{ item.path }}"
+        name: "{{ item.name }}"
+        tag: "{{ item.tag }}"
+      loop: "{{images}}"
+
+    - name: Create db_password.txt with variable content
+      ansible.builtin.copy:
+        dest: ./db_password.txt
+        content: "{{ DB_PASSWORD }}"
+
+    - name: run docker compose 
+      community.docker.docker_compose_v2:
+         state: present 
+         project_src: ./
+
+    - name: removing the password file
+      ansible.builtin.file:
+        path: ./db_password.txt
+        state: absent
