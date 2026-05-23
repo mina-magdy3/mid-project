@@ -14,10 +14,10 @@ services:
         - front_back
         - db_back
       environment:
-        - DB_HOST=db
-        - DB_PORT=3306
-        - DB_NAME=database_2
-        - DB_USER=root
+        - DB_HOST=${DB_HOST}
+        - DB_PORT=${DB_PORT}
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
         - DB_PASSWORD_FILE=/run/secrets/db_password
       secrets:
         - db_password
@@ -34,7 +34,7 @@ services:
         - db_password
       environment:
        - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_password
-       - MYSQL_DATABASE=database_2
+       - MYSQL_DATABASE=${DB_NAME}
 
 volumes:
   db-data:

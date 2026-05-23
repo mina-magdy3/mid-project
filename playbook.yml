@@ -11,21 +11,18 @@
         name: docker-ce
         state: present
 
+    - name: ensure docker service is running
+      ansible.builtin.service:
+         name: docker 
+         state: started
+         enabled: yes 
+
     - name: dockerhub login
       community.docker.docker_login:
         state: present
-        username: "{{ DOCKER_USERNAME }}"
-        password: "{{ DOCKER_PASSWORD }}"
-
-    - name: Build & Push Docker Images
-      community.docker.docker_image:
-        push: yes
-        source: build
-        build: 
-          path: "{{ item.path }}"
-        name: "{{ item.name }}"
-        tag: "{{ item.tag }}"
-      loop: "{{images}}"
+        registery_url: ghcr.io
+        username: "{{ github_actor }}"
+        password: "{{ github_token }}"
 
     - name: Create db_password.txt with variable content
       ansible.builtin.copy:
