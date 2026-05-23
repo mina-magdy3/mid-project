@@ -20,16 +20,6 @@ jobs:
           run_test: true
           project-path: /backend 
           build-configuration: release
-        # steps:
-        #     - name: code checkout
-        #       uses: actions/checkout@v4
-            # - name: using reusable workflow
-            #   uses: mina-magdy3/mid-project-cenralized-automation/.github/workflows/dotnet.yml@main
-            #   with:
-            #      dotnet_version: "8.0"
-            #      run_test: true
-            #      project-path: /backend 
-            #      build-configuration: release
     react-ci:
         runs-on: ubuntu-latest
         steps:
