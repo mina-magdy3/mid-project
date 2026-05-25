@@ -57,8 +57,6 @@ jobs:
               password: ${{ secrets.GITHUB_TOKEN }} 
               image-name: ${{github.repository_owner}}/react-app
               tag: ${{ github.sha }}
-            env:
-              DOCKER_HOST: unix://var/run/docker.sock
           - name: Run Trivy vulnerability scanner
             uses: aquasecurity/trivy-action@0.35.0
             with:
