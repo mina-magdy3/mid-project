@@ -55,8 +55,8 @@ jobs:
               password: ${{ secrets.GITHUB_TOKEN }} 
               image_name: react-app
               tag: |
-                ${{ github.sha }}
-                latest
+                - ${{ github.sha }}
+                - latest
           - name: Run Trivy vulnerability scanner
             uses: aquasecurity/trivy-action@0.35.0
             with:
