@@ -3,7 +3,8 @@
   gather_facts: yes
   become: yes
   vars:
-    username: "{{lookup('env', ())}}"
+    username: "{{lookup('env', 'GH_ACTOR')}}"
+    password: "{{lookup('env', 'GH_TOKEN')}}"
   tasks:
     - name: check if docker is installed
       ansible.builtin.package:
@@ -20,8 +21,8 @@
       community.docker.docker_login:
         state: present
         registery_url: ghcr.io
-        username: "{{ github_actor }}"
-        password: "{{ github_token }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
 
     - name: Create db_password.txt with variable content
       ansible.builtin.copy:
@@ -32,6 +33,13 @@
       community.docker.docker_compose_v2:
          state: present 
          project_src: ./
+         environment: 
+           DB_HOST: "{{lookup('env', 'DB_HOST')}}"
+           DB_PORT: "{{lookup('env', 'DB_PORT')}}"
+           DB_NAME: "{{lookup('env', 'DB_NAME')}}"
+           DB_USER: "{{lookup('env', 'DB_USER')}}"
+           APP_URL: "{{lookup('env', 'APP_URL')}}"
+           MYSQL_ROOT_PASSWORD: "{{lookup('env', 'MYSQL_ROOT_PASSWORD')}}"
 
     - name: removing the password file
       ansible.builtin.file:

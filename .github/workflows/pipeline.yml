@@ -108,7 +108,15 @@ jobs:
       steps:
         - name: code checkout
           uses: actions/checkout@v4 
-        - name: run playbook
-          run: ansible-playbook playbook.yml 
-              #  -e github_actor=${{github.actor}} \
-              #  -e github_token=${{github.token}}
+        - name: run playbook 
+          env:
+            DB_HOST: ${{vars.DB_HOST}}
+            DB_PORT: ${{vars.DB_PORT}}
+            DB_NAME: ${{vars.DB_NAME}}
+            DB_USER: ${{vars.DB_USER}}
+            APP_URL: ${{vars.APP_URL}}
+            MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+            username: ${{github.actor}}
+            password: ${{secrets.GITHUB_TOKEN}}
+          run: ansible-playbook playbook.yml
+
