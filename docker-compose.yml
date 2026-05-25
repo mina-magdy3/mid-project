@@ -1,6 +1,6 @@
 services: 
     frontend:
-      image: ghcr.io/mina-magdy-3/react-app:latest
+      image: ghcr.io/mina-magdy3/react-app:latest
       networks: 
         - front_back
       ports:
