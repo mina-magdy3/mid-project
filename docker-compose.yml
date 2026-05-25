@@ -1,6 +1,6 @@
 services: 
     frontend:
-      build: ./React-Frontend
+      image: ghcr.io/${username}/react-app:latest
       networks: 
         - front_back
       ports:
@@ -9,7 +9,7 @@ services:
         - backend
 
     backend: 
-      build: ./DotNet-Backend
+      image: ghcr.io/${username}/dotnet:latest
       networks:
         - front_back
         - db_back
