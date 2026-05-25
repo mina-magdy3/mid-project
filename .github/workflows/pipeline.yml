@@ -52,10 +52,10 @@ jobs:
           - name: Using Custom Action
             uses: mina-magdy3/mid-project-cenralized-automation/.github/actions/react-docker-s2i@main
             with:
-              registery: ghcr.io
+              registery: "ghcr.io"
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }} 
-              image-name: "react-app"
+              image-name: ${{github.repository_owner}}/react-app
               tag: ${{ github.sha }}
 
           - name: Run Trivy vulnerability scanner
