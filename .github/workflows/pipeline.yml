@@ -13,7 +13,6 @@ permissions:
   security-events: write
 jobs:
     dotnet-ci:
-        # runs-on: ubuntu-latest
         uses: mina-magdy3/mid-project-cenralized-automation/.github/workflows/dotnet.yml@main
         with:
           dotnet_version: "8.0"
@@ -22,6 +21,9 @@ jobs:
           build-configuration: release
     react-ci:
         runs-on: ubuntu-latest
+        defaults:
+          run: 
+            working-directory: ./React-Frontend
         steps:
           - name: code checkout
             uses: actions/checkout@v4
