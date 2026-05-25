@@ -12,13 +12,13 @@ permissions:
   packages: write
   security-events: write
 jobs:
-    # dotnet-ci:
-    #     uses: mina-magdy3/mid-project-cenralized-automation/.github/workflows/dotnet.yml@main
-    #     with:
-    #       dotnet_version: "8.0"
-    #       run_test: true
-    #       project-path: /DotNet-Backend 
-    #       build-configuration: release
+    dotnet-ci:
+        uses: mina-magdy3/mid-project-cenralized-automation/.github/workflows/dotnet.yml@main
+        with:
+          dotnet_version: "8.0"
+          run_test: true
+          project-path: /DotNet-Backend 
+          build-configuration: release
     react-ci:
         runs-on: ubuntu-latest 
         steps:
@@ -34,19 +34,19 @@ jobs:
           - name: Building Static Files
             run: npm run build
             working-directory: ./React-Frontend             
-          # - name: Run Gitleaks
-          #   uses: gitleaks/gitleaks-action@v2
-          #   continue-on-error: true
-          # - name: Upload SARIF to GitHub
-          #   uses: github/codeql-action/upload-sarif@v3
-          #   with:
-          #    sarif_file: results.sarif
-          # - name: Initialize CodeQL
-          #   uses: github/codeql-action/init@v3
-          #   with:
-          #     languages:  javascript
-          # - name: Perform CodeQL Analysis
-          #   uses: github/codeql-action/analyze@v3
+          - name: Run Gitleaks
+            uses: gitleaks/gitleaks-action@v2
+            continue-on-error: true
+          - name: Upload SARIF to GitHub
+            uses: github/codeql-action/upload-sarif@v3
+            with:
+             sarif_file: results.sarif
+          - name: Initialize CodeQL
+            uses: github/codeql-action/init@v3
+            with:
+              languages:  javascript
+          - name: Perform CodeQL Analysis
+            uses: github/codeql-action/analyze@v3
           - name: Using Custom Action
             uses: mina-magdy3/mid-project-cenralized-automation/.github/actions/react-docker-s2i@main
             with:
@@ -84,7 +84,7 @@ jobs:
             target: "/var/www/react-app"
     deploy-dotnet:
       runs-on: ubuntu-latest
-      # needs: dotnet-ci
+      needs: dotnet-ci
       if: github.event.inputs.environment != 'dev'
       environment: ${{github.event.inputs.environment}}
       steps:
@@ -102,7 +102,7 @@ jobs:
       runs-on: [self-hosted, linux]
       needs: 
         - react-ci
-        # - dotnet-ci
+        - dotnet-ci
       if: github.event.inputs.environment == 'dev'
       environment: dev
       steps:
