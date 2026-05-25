@@ -32,10 +32,11 @@
         content: "{{ DB_PASSWORD }}"
 
     - name: run docker compose 
-      community.docker.docker_compose_v2:
-         state: present 
-         project_src: ./
-         environment: 
+      ansible.builtin.shell: |
+         docker compose up -d
+      args:
+         chdir: "{{playbook_dir}}"
+      environment: 
            DB_HOST: "{{lookup('env', 'DB_HOST')}}"
            DB_PORT: "{{lookup('env', 'DB_PORT')}}"
            DB_NAME: "{{lookup('env', 'DB_NAME')}}"
