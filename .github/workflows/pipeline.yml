@@ -96,7 +96,7 @@ jobs:
             host: ${{secrets.EC2_HOSt}}
             username: ${{secrets.USER}}
             key: ${{secrets.EC2_SSH_KEY}}
-            source: "build-output/*"
+            source: "."
             target: "/var/www/my-dotnet-app"
     deploy-dev:
       runs-on: [self-hosted, linux]
