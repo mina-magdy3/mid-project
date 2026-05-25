@@ -24,9 +24,6 @@ jobs:
         defaults:
           run: 
             working-directory: ./React-Frontend
-        container:
-          image: ubuntu:latest
-          options: --user root -v /var/run/docker.sock:/var/run/docker.sock   
         steps:
           - name: code checkout
             uses: actions/checkout@v4
