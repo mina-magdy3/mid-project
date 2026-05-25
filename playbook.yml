@@ -7,8 +7,11 @@
     password: "{{lookup('env', 'GH_TOKEN')}}"
   tasks:
     - name: check if docker is installed
+      ignore_errors: true
       ansible.builtin.package:
-        name: docker-ce
+        name: 
+          - docker-ce
+          - docker-compose-plugin
         state: present
 
     - name: ensure docker service is running
@@ -18,11 +21,10 @@
          enabled: yes 
 
     - name: dockerhub login
-      community.docker.docker_login:
-        state: present
-        registery_url: ghcr.io
-        username: "{{ username }}"
-        password: "{{ password }}"
+      ansible.builtin.shell: |
+        echo "{{password}}" | docker login ghcr.io -u "{{username}}" --password-stdin
+      changed_when: false
+
 
     - name: Create db_password.txt with variable content
       ansible.builtin.copy:
