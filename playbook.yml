@@ -3,8 +3,8 @@
   gather_facts: yes
   become: yes
   vars:
-    username: "{{lookup('env', 'GH_ACTOR')}}"
-    password: "{{lookup('env', 'GH_TOKEN')}}"
+    username: "{{lookup('env', 'username')}}"
+    password: "{{lookup('env', 'password')}}"
   tasks:
     - name: check if docker is installed
       ignore_errors: true
