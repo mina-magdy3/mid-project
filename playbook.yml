@@ -2,9 +2,8 @@
   hosts : localhost
   gather_facts: yes
   become: yes
-  vars_files:
-    - vars.yml
-    - secret.yml
+  vars:
+    username: "{{lookup('env', ())}}"
   tasks:
     - name: check if docker is installed
       ansible.builtin.package:

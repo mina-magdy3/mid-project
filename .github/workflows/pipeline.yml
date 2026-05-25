@@ -109,6 +109,6 @@ jobs:
         - name: code checkout
           uses: actions/checkout@v4 
         - name: run playbook
-          run: ansible-playbook playbook.yml \
-               -e github_actor=${{github.actor}} \
-               -e github_token=${{github.token}}
+          run: ansible-playbook playbook.yml 
+              #  -e github_actor=${{github.actor}} \
+              #  -e github_token=${{github.token}}
