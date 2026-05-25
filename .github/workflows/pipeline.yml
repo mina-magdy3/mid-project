@@ -52,7 +52,7 @@ jobs:
           - name: Using Custom Action
             uses: mina-magdy3/mid-project-cenralized-automation/.github/actions/react-docker-s2i@main
             with:
-              registery: "ghcr.io"
+              registry: "ghcr.io"
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }} 
               image-name: ${{github.repository_owner}}/react-app
