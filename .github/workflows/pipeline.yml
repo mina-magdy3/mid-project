@@ -48,14 +48,13 @@ jobs:
           #     languages:  javascript
           # - name: Perform CodeQL Analysis
           #   uses: github/codeql-action/analyze@v3
-
           - name: Using Custom Action
             uses: mina-magdy3/mid-project-cenralized-automation/.github/actions/react-docker-s2i@main
             with:
               registry: "ghcr.io"
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }} 
-              image-name: ${{github.repository_owner}}/react-app
+              image_name: react-app
               tag: ${{ github.sha }}
           - name: Run Trivy vulnerability scanner
             uses: aquasecurity/trivy-action@0.35.0
