@@ -22,8 +22,11 @@ services:
         - DB_USER=${DB_USER}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - DB_PASSWORD_FILE=/run/secrets/db_password
+        - ASPNETCORE_URLS=http://+:8080
       depends_on:
         - db
+      ports:
+      - "5033:8080"
 
     db:
       image: mysql:8.0
