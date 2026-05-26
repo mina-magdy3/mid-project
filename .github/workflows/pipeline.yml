@@ -66,38 +66,38 @@ jobs:
     #         uses: github/codeql-action/upload-sarif@v4
     #         with:
     #           sarif_file: 'trivy-results.sarif'  
-    # deploy-react:
-    #   runs-on: ubuntu-latest
-    #   # needs: react-ci
-    #   if: github.event.inputs.environment != 'dev'
-    #   environment: ${{github.event.inputs.environment}}
-    #   steps:
-    #     - name: code checkout
-    #       uses: actions/checkout@v4  
-    #     - name: deploy react service
-    #       uses: appleboy/scp-action@v0.1.7
-    #       with:
-    #         host: ${{secrets.EC2_HOSt}}
-    #         username: ${{secrets.USER}}
-    #         key: ${{secrets.EC2_SSH_KEY}}
-    #         source: "build/"
-    #         target: "/var/www/react-app"
-    # deploy-dotnet:
-    #   runs-on: ubuntu-latest
-    #   # needs: dotnet-ci
-    #   if: github.event.inputs.environment != 'dev'
-    #   environment: ${{github.event.inputs.environment}}
-    #   steps:
-    #     - name: code checkout
-    #       uses: actions/checkout@v4 
-    #     - name: deploy dotnet service
-    #       uses: appleboy/scp-action@v0.1.7
-    #       with:
-    #         host: ${{secrets.EC2_HOSt}}
-    #         username: ${{secrets.USER}}
-    #         key: ${{secrets.EC2_SSH_KEY}}
-    #         source: "."
-    #         target: "/var/www/my-dotnet-app"
+    deploy-react:
+      runs-on: ubuntu-latest
+      # needs: react-ci
+      if: github.event.inputs.environment != 'dev'
+      environment: ${{github.event.inputs.environment}}
+      steps:
+        - name: code checkout
+          uses: actions/checkout@v4  
+        - name: deploy react service
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{secrets.EC2_HOSt}}
+            username: ${{secrets.USER}}
+            key: ${{secrets.EC2_SSH_KEY}}
+            source: "build/"
+            target: "/var/www/react-app"
+    deploy-dotnet:
+      runs-on: ubuntu-latest
+      # needs: dotnet-ci
+      if: github.event.inputs.environment != 'dev'
+      environment: ${{github.event.inputs.environment}}
+      steps:
+        - name: code checkout
+          uses: actions/checkout@v4 
+        - name: deploy dotnet service
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{secrets.EC2_HOSt}}
+            username: ${{secrets.USER}}
+            key: ${{secrets.EC2_SSH_KEY}}
+            source: "."
+            target: "/var/www/my-dotnet-app"
     deploy-dev:
       runs-on: [self-hosted, linux]
       # needs: 
