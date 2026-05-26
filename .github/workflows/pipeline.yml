@@ -104,7 +104,7 @@ jobs:
         - name: code checkout
           uses: actions/checkout@v4 
         - name: ssh connect
-          uses: appleboy/ssh-action@v1.2.0  
+          uses: appleboy/ssh-action@master 
           with:
             host: ${{secrets.EC2_HOSt}}
             username: ${{secrets.EC2_USER}}
