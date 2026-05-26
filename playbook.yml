@@ -26,10 +26,10 @@
         echo "{{password}}" | docker login ghcr.io -u "{{username}}" --password-stdin
       changed_when: false
 
-    # - name: Create db_password.txt with variable content
-    #   ansible.builtin.copy:
-    #     dest: ./db_password.txt
-    #     content: "{{ MYSQL_ROOT_PASSWORD }}"
+    - name: Create db_password.txt with variable content
+      ansible.builtin.copy:
+        dest: ./db_password.txt
+        content: "{{ MYSQL_ROOT_PASSWORD }}"
 
     - name: run docker compose 
       ansible.builtin.shell: |
@@ -42,9 +42,8 @@
            DB_NAME: "{{lookup('env', 'DB_NAME')}}"
            DB_USER: "{{lookup('env', 'DB_USER')}}"
            APP_URL: "{{lookup('env', 'APP_URL')}}"
-           MYSQL_ROOT_PASSWORD: "{{lookup('env', 'MYSQL_ROOT_PASSWORD')}}"
 
-    # - name: removing the password file
-    #   ansible.builtin.file:
-    #     path: ./db_password.txt
-    #     state: absent
+    - name: removing the password file
+      ansible.builtin.file:
+        path: ./db_password.txt
+        state: absent
