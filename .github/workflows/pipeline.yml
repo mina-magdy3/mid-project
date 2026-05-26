@@ -109,6 +109,15 @@ jobs:
             host: ${{secrets.EC2_HOSt}}
             username: ${{secrets.EC2_USER}}
             key: ${{secrets.EC2_SSH_KEY}}
+            envs: |
+              DB_HOST=${{ vars.DB_HOST }}
+              DB_PORT=${{ vars.DB_PORT }}
+              DB_NAME=${{ vars.DB_NAME }}
+              DB_USER=${{ vars.DB_USER }}
+              MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+              GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+              GH_ACTOR=${{ github.actor }}
+              GH_OWNER=${{ github.repository_owner }}
             script: |
               docker login ghcr.io \
                 -u ${{ github.actor }} \
