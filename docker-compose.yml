@@ -7,6 +7,9 @@ services:
        - 8080:80
       depends_on:
         - backend
+      environment:
+      # Pass the backend API target so your React components know where to fetch data
+        - REACT_APP_API_URL=http://localhost:5033
 
     backend: 
       image: ghcr.io/mina-magdy3/dotnet:latest
@@ -22,11 +25,11 @@ services:
         - DB_USER=${DB_USER}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - DB_PASSWORD_FILE=/run/secrets/db_password
-        - ASPNETCORE_URLS=http://+:5033
+        - ASPNETCORE_URLS=http://+:8080
       depends_on:
         - db
       ports:
-      - "5033:5033"
+      - "5033:8080"
 
     db:
       image: mysql:8.0
