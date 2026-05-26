@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY ./build-output .
 
-EXPOSE 5033
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "API.dll"]
