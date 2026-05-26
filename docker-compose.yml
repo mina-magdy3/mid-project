@@ -14,7 +14,7 @@ services:
         - front_back
         - db_back
       ports:
-        - "5000:5000"
+        - "5000:5033"
       environment:
         - DB_HOST=${DB_HOST}
         - DB_PORT=${DB_PORT}
