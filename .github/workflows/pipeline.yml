@@ -115,8 +115,8 @@ jobs:
             DB_NAME: ${{vars.DB_NAME}}
             DB_USER: ${{vars.DB_USER}}
             APP_URL: ${{vars.APP_URL}}
-            MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
-            username: ${{github.actor}}
-            password: ${{secrets.GITHUB_TOKEN}}
+            # MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+            # username: ${{github.actor}}
+            # password: ${{secrets.GITHUB_TOKEN}}
           run: ansible-playbook playbook.yml
 
