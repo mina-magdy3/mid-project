@@ -38,6 +38,7 @@ services:
        - MYSQL_DATABASE=${DB_NAME}
        - MYSQL_USER=${DB_USER}
        - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
+       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_password
 
 volumes:
   db-data:
