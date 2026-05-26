@@ -13,6 +13,8 @@ services:
       networks:
         - front_back
         - db_back
+      ports:
+        - "5000:5000"
       environment:
         - DB_HOST=${DB_HOST}
         - DB_PORT=${DB_PORT}

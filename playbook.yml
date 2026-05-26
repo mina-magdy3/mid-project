@@ -26,7 +26,6 @@
         echo "{{password}}" | docker login ghcr.io -u "{{username}}" --password-stdin
       changed_when: false
 
-
     - name: Create db_password.txt with variable content
       ansible.builtin.copy:
         dest: ./db_password.txt
