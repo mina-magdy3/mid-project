@@ -41,7 +41,7 @@ services:
 
 volumes:
   db-data:
-
+ 
 networks:
   front_back:
   db_back: 
