@@ -26,7 +26,7 @@ services:
       depends_on:
         - db
       ports:
-      - "5033:8080"
+      - "5033:5033"
 
     db:
       image: mysql:8.0
