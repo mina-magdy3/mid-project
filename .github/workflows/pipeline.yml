@@ -108,7 +108,7 @@ jobs:
       steps:
         - name: code checkout
           uses: actions/checkout@v4 
-        - name: run playbook 
+        - name: run playbook  
           env:
             DB_HOST: ${{vars.DB_HOST}}
             DB_PORT: ${{vars.DB_PORT}}
