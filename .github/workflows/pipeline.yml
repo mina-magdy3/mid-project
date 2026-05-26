@@ -86,7 +86,7 @@ jobs:
               -u ${{ github.actor }} \
               -p ${{ secrets.GITHUB_TOKEN }}
 
-            docker pull ghcr.io/${{ github.repository_owner }}/react-app:latest
+            docker pull ghcr.io/${{ github.repository_owner }}/react-app:51188e28e0c66ce3cb62e7b5fd785ac20488e182
 
             docker stop react-app || true
             docker rm react-app || true
@@ -104,7 +104,7 @@ jobs:
       steps:
         - name: code checkout
           uses: actions/checkout@v4 
-        - name: deploy dotnet app
+        - name: ssh connect
           uses: appleboy/ssh-action@v0.1.7
           with:
             host: ${{secrets.EC2_HOSt}}
