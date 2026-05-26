@@ -109,6 +109,15 @@ jobs:
             host: ${{secrets.EC2_HOSt}}
             username: ${{secrets.EC2_USER}}
             key: ${{secrets.EC2_SSH_KEY}}
+            envs: |
+              DB_HOST=${{ vars.DB_HOST }}
+              DB_PORT=${{ vars.DB_PORT }}
+              DB_NAME=${{ vars.DB_NAME }}
+              DB_USER=${{ vars.DB_USER }}
+              MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+              GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+              GH_ACTOR=${{ github.actor }}
+              GH_OWNER=${{ github.repository_owner }}
             script: |
               docker login ghcr.io \
                 -u ${{ github.actor }} \
@@ -120,7 +129,7 @@ jobs:
               docker rm dotnet || true
 
               docker run -d --name dotnet-app --network app-network -p 5033:8080 -e DB_HOST="dotnet-db" -e DB_PORT="3306" -e DB_NAME="$DB_NAME" -e DB_USER="$DB_USER" -e DB_PASSWORD="$MYSQL_ROOT_PASSWORD" -e ASPNETCORE_URLS="http://+:8080" ghcr.io/mina-magdy3/dotnet:latest
-            
+
     deploy-dev:
       runs-on: [self-hosted, linux]
       # needs: 
