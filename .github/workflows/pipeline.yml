@@ -98,25 +98,25 @@ jobs:
             key: ${{secrets.EC2_SSH_KEY}}
             source: "."
             target: "/var/www/my-dotnet-app"
-    deploy-dev:
-      runs-on: [self-hosted, linux]
-      # needs: 
-      #   - react-ci
-      #   - dotnet-ci
-      if: github.event.inputs.environment == 'dev'
-      environment: dev
-      steps:
-        - name: code checkout
-          uses: actions/checkout@v4 
-        - name: run playbook    
-          env:
-            DB_HOST: ${{vars.DB_HOST}}
-            DB_PORT: ${{vars.DB_PORT}}
-            DB_NAME: ${{vars.DB_NAME}}
-            DB_USER: ${{vars.DB_USER}}
-            APP_URL: ${{vars.APP_URL}}
-            # MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
-            # username: ${{github.actor}}
-            # password: ${{secrets.GITHUB_TOKEN}}
-          run: ansible-playbook playbook.yml
+    # deploy-dev:
+    #   runs-on: [self-hosted, linux]
+    #   # needs: 
+    #   #   - react-ci
+    #   #   - dotnet-ci
+    #   if: github.event.inputs.environment == 'dev'
+    #   environment: dev
+    #   steps:
+    #     - name: code checkout
+    #       uses: actions/checkout@v4 
+    #     - name: run playbook    
+    #       env:
+    #         DB_HOST: ${{vars.DB_HOST}}
+    #         DB_PORT: ${{vars.DB_PORT}}
+    #         DB_NAME: ${{vars.DB_NAME}}
+    #         DB_USER: ${{vars.DB_USER}}
+    #         APP_URL: ${{vars.APP_URL}}
+    #         MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+    #         username: ${{github.actor}}
+    #         password: ${{secrets.GITHUB_TOKEN}}
+    #       run: ansible-playbook playbook.yml
 
