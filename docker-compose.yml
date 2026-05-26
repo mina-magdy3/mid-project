@@ -30,8 +30,6 @@ services:
         - db-data:/var/lib/mysql
       networks:
         - db_back
-      secrets:
-        - db_password
       environment:
        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
        - MYSQL_DATABASE=${DB_NAME}
