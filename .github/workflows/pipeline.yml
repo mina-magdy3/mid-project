@@ -91,10 +91,10 @@ jobs:
               docker rm react-app || true
 
               docker run -d \
-               --name react-app \
-               -p 80:80 \
-               --network app-network \
-               ghcr.io/${{ github.repository_owner }}/react-app:51188e28e0c66ce3cb62e7b5fd785ac20488e182
+                --name react-app \
+                -p 80:80 \
+                --network app-network \
+                ghcr.io/${{ github.repository_owner }}/react-app:51188e28e0c66ce3cb62e7b5fd785ac20488e182
     deploy-dotnet:
       runs-on: ubuntu-latest
       # needs: dotnet-ci
