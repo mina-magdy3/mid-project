@@ -74,14 +74,28 @@ jobs:
       steps:
         - name: code checkout
           uses: actions/checkout@v4  
-        - name: deploy react service
-          uses: appleboy/scp-action@v0.1.7
+        - name: Deploy React
+          uses: appleboy/ssh-action@v1.2.0
           with:
-            host: ${{secrets.EC2_HOSt}}
-            username: ${{secrets.USER}}
-            key: ${{secrets.EC2_SSH_KEY}}
-            source: "build/"
-            target: "/var/www/react-app"
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USER }}
+            key: ${{ secrets.EC2_SSH_KEY }}
+        - name: deploy react app
+          run: |
+            docker login ghcr.io \
+            -u ${{ github.actor }} \
+            -p ${{ secrets.GITHUB_TOKEN }}
+
+            docker pull ghcr.io/${{ github.repository_owner }}/react-app:latest
+
+            docker stop react-app || true
+            docker rm react-app || true
+
+            docker run -d \
+            --name react-app \
+            -p 80:80 \
+            --network app-network \
+            ghcr.io/${{ github.repository_owner }}/react-app:51188e28e0c66ce3cb62e7b5fd785ac20488e182
     deploy-dotnet:
       runs-on: ubuntu-latest
       # needs: dotnet-ci
@@ -91,13 +105,32 @@ jobs:
         - name: code checkout
           uses: actions/checkout@v4 
         - name: deploy dotnet service
-          uses: appleboy/scp-action@v0.1.7
+          uses: appleboy/ssh-action@v0.1.7
           with:
             host: ${{secrets.EC2_HOSt}}
             username: ${{secrets.USER}}
             key: ${{secrets.EC2_SSH_KEY}}
-            source: "."
-            target: "/var/www/my-dotnet-app"
+        - name: deploy dotnet app
+          run: |
+            docker login ghcr.io \
+            -u ${{ github.actor }} \
+            -p ${{ secrets.GITHUB_TOKEN }}
+
+            docker pull ghcr.io/${{ github.repository_owner }}/dotnet:latest
+
+            docker stop dotnet || true
+            docker rm dotnet || true
+
+            docker run -d \
+            --name dotnet \
+            --network app-network \
+            -p 5000:8080 \
+            -e DB_HOST=${{vars.DB_HOST}} \
+            -e DB_PORT=${{vars.DB_PORT}} \
+            -e DB_NAME=${{ vars.DB_NAME }} \
+            -e DB_USER=${{ vars.DB_USER }} \
+            -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+            ghcr.io/${{ github.repository_owner }}/dotnet:latest 
     deploy-dev:
       runs-on: [self-hosted, linux]
       # needs: 
