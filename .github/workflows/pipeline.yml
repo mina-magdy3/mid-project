@@ -123,8 +123,10 @@ jobs:
                 -u ${{ github.actor }} \
                 -p ${{ secrets.GITHUB_TOKEN }}
               docker pull ghcr.io/mina-magdy3/dotnet:latest
-              docker stop dotnet-app || true
-              docker rm dotnet-app || true
+              docker pull mysql:8.0
+              docker stop dotnet-app db || true
+              docker rm dotnet-app db || true
+              docker run -d --name db --network app-network -v db-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" -e MYSQL_DATABASE="$DB_NAME" -e MYSQL_USER="$DB_USER" -e MYSQL_PASSWORD="$MYSQL_ROOT_PASSWORD" mysql:8.0
               docker run -d --name dotnet-app --network app-network -p 5033:8080 -e DB_HOST="dotnet-db" -e DB_PORT="3306" -e DB_NAME="$DB_NAME" -e DB_USER="$DB_USER" -e DB_PASSWORD="$MYSQL_ROOT_PASSWORD" -e ASPNETCORE_URLS="http://+:8080" ghcr.io/mina-magdy3/dotnet:latest
 
     deploy-dev:
